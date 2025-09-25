@@ -50,4 +50,5 @@ export interface DashboardStats {
   convertedLeads: number;
   totalValue: number;
   conversionRate: number;
+  leadsUltimos7Dias: number[]; // Array com 7 números, um para cada dia da semana
 }
