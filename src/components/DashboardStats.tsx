@@ -15,18 +15,18 @@ interface StatsCardProps {
 
 const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+    <div className="bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">{value}</p>
+          <p className="text-sm font-medium text-slate-300">{title}</p>
+          <p className="text-2xl font-bold text-white mt-2">{value}</p>
           {trend && (
-            <p className={`text-sm mt-2 ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+            <p className={`text-sm mt-2 ${trend.isPositive ? 'text-green-400' : 'text-red-400'}`}>
               {trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%
             </p>
           )}
         </div>
-        <div className="text-blue-500">
+        <div className="text-blue-400">
           {icon}
         </div>
       </div>
@@ -41,7 +41,7 @@ interface DashboardStatsProps {
 const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
   // Verificações de segurança para evitar erros
   if (!stats) {
-    return <div>Carregando estatísticas...</div>;
+    return <div className="text-white">Carregando estatísticas...</div>;
   }
 
   // Calcular o valor máximo dos dados para ajustar o eixo Y
@@ -85,8 +85,8 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
         {/* Gráfico de Linha - 4/6 da largura (2/3) */}
         {stats.leadsUltimos7Dias && stats.leadsUltimos7Dias.length > 0 && (
-          <div className="lg:col-span-4 bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Leads dos Últimos 7 Dias</h3>
+          <div className="lg:col-span-4 bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700">
+            <h3 className="text-lg font-semibold text-white mb-6">Leads dos Últimos 7 Dias</h3>
             <div className="h-80 relative">
               {/* Definição do gradiente SVG */}
               <svg width="0" height="0" style={{ position: 'absolute' }}>
@@ -145,21 +145,21 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                   // Pontos de dados mais destacados
                   '.MuiMarkElement-root': {
                     strokeWidth: 3,
-                    stroke: '#ffffff',
+                    stroke: '#1e293b',
                     fill: '#3B82F6',
                     r: 6,
                     filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
                   },
                   // Remover bordas dos eixos
                   '& .MuiChartsAxis-line': {
-                    stroke: '#E5E7EB',
+                    stroke: '#475569',
                     strokeWidth: 1,
                   },
                   // Estilizar labels dos eixos
                   '& .MuiChartsAxis-tickLabel': {
                     fontSize: '12px',
                     fontWeight: 500,
-                    fill: '#6B7280',
+                    fill: '#94A3B8',
                   },
                   // Remover ticks dos eixos
                   '& .MuiChartsAxis-tick': {
@@ -168,7 +168,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                   // Container do gráfico
                   '& .MuiChartsAxis-root': {
                     '& .MuiChartsAxis-bottom .MuiChartsAxis-line': {
-                      stroke: '#F3F4F6',
+                      stroke: '#64748B',
                     },
                     '& .MuiChartsAxis-left .MuiChartsAxis-line': {
                       stroke: 'transparent',
@@ -182,8 +182,8 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
 
         {/* Gráfico de Torta - Distribuição por Professor - 1/6 da largura */}
         {stats.leadsPorProfessor && stats.leadsPorProfessor.length > 0 && (
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Professores</h3>
+          <div className="bg-slate-800 rounded-lg shadow-lg p-4 border border-slate-700">
+            <h3 className="text-sm font-semibold text-white mb-3">Professores</h3>
             <div className="flex justify-center">
               <PieChart
                 series={[
@@ -221,8 +221,8 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
 
         {/* Gráfico de Torta - Distribuição por Nível - 1/6 da largura */}
         {stats.leadsPorNivel && stats.leadsPorNivel.length > 0 && (
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Níveis</h3>
+          <div className="bg-slate-800 rounded-lg shadow-lg p-4 border border-slate-700">
+            <h3 className="text-sm font-semibold text-white mb-3">Níveis</h3>
             <div className="flex justify-center">
               <PieChart
                 series={[
@@ -232,7 +232,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                       value: value,
                       label: `Nível ${['I', 'II', 'III', 'IV', 'V', 'VI'][index]}`, // I, II, III, IV, V, VI
                       color: [
-                        '#10B981', '#34D399', '#6EE7B7', '#A7F3D0', '#D1FAE5', '#ECFDF5'
+                        '#1E40AF', '#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'
                       ][index]
                     })),
                     arcLabel: () => '', // Remove labels das fatias

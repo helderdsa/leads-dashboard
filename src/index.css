@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+/* Configurações globais para tema escuro */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: #030712; /* slate-950 */
+}
+
+body {
+  background-color: #030712; /* slate-950 */
+  color: #ffffff;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Garantir que scrollbars também sejam escuras */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b; /* slate-800 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569; /* slate-600 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b; /* slate-500 */
+}
+
+/* Estilos para inputs e selects se necessário */
+input, select, textarea {
+  background-color: #1e293b; /* slate-800 */
+  color: #ffffff;
+  border-color: #475569; /* slate-600 */
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #3b82f6; /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}

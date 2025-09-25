@@ -15,8 +15,8 @@ function App() {
     totalValue: 125000,
     conversionRate: 12.7,
     leadsUltimos7Dias: [12, 18, 15, 22, 8, 25, 19], // Domingo a Sábado
-    leadsPorProfessor: [15, 22, 18, 28, 12, 33, 19, 25, 14, 21], // Professores A-J
-    leadsPorNivel: [28, 35, 24, 18, 22, 15] // Níveis I-VI
+    leadsPorProfessor: [15, 12, 18, 8, 22, 14, 9, 16, 11, 7], // A-J
+    leadsPorNivel: [25, 18, 22, 15, 12, 8] // I-VI
   };
 
   const mockLeads: Lead[] = [
@@ -74,12 +74,12 @@ function App() {
   const displayLoading = leadsLoading && leads.length === 0;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-950">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard de Leads</h1>
-          <p className="text-gray-600">Gerencie seus leads e acompanhe o desempenho das vendas</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Dashboard de Leads</h1>
+          <p className="text-slate-300">Gerencie seus leads e acompanhe o desempenho das vendas</p>
         </div>
 
         {/* Stats Cards */}
@@ -87,14 +87,14 @@ function App() {
 
         {/* Error Messages */}
         {leadsError && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
+          <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded mb-6">
             <p><strong>Erro ao carregar leads:</strong> {leadsError}</p>
             <p className="text-sm mt-1">Exibindo dados de exemplo. Verifique se a API está funcionando.</p>
           </div>
         )}
 
         {statsError && (
-          <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded mb-6">
+          <div className="bg-yellow-900/50 border border-yellow-700 text-yellow-300 px-4 py-3 rounded mb-6">
             <p><strong>Erro ao carregar estatísticas:</strong> {statsError}</p>
             <p className="text-sm mt-1">Exibindo estatísticas de exemplo.</p>
           </div>
@@ -103,7 +103,7 @@ function App() {
         {/* Leads Table */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Lista de Leads</h2>
+            <h2 className="text-xl font-semibold text-white">Lista de Leads</h2>
             <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors">
               + Novo Lead
             </button>
@@ -118,12 +118,12 @@ function App() {
         </div>
 
         {/* Footer Info */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Configuração do Projeto</h3>
+        <div className="bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700">
+          <h3 className="text-lg font-medium text-white mb-4">Configuração do Projeto</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div>
-              <h4 className="font-medium text-gray-700 mb-2">Tecnologias</h4>
-              <ul className="text-gray-600 space-y-1">
+              <h4 className="font-medium text-slate-200 mb-2">Tecnologias</h4>
+              <ul className="text-slate-300 space-y-1">
                 <li>✅ React 18 + TypeScript</li>
                 <li>✅ Tailwind CSS</li>
                 <li>✅ Axios</li>
@@ -131,8 +131,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-gray-700 mb-2">Estrutura</h4>
-              <ul className="text-gray-600 space-y-1">
+              <h4 className="font-medium text-slate-200 mb-2">Estrutura</h4>
+              <ul className="text-slate-300 space-y-1">
                 <li>📁 /src/components</li>
                 <li>📁 /src/services</li>
                 <li>📁 /src/hooks</li>
@@ -140,8 +140,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-gray-700 mb-2">Funcionalidades</h4>
-              <ul className="text-gray-600 space-y-1">
+              <h4 className="font-medium text-slate-200 mb-2">Funcionalidades</h4>
+              <ul className="text-slate-300 space-y-1">
                 <li>📊 Dashboard com estatísticas</li>
                 <li>📋 Tabela de leads responsiva</li>
                 <li>🔄 Gerenciamento de estado</li>
