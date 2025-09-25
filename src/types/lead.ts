@@ -51,4 +51,6 @@ export interface DashboardStats {
   totalValue: number;
   conversionRate: number;
   leadsUltimos7Dias: number[]; // Array com 7 números, um para cada dia da semana
+  leadsPorProfessor: number[]; // Array com 10 números, um para cada professor (A-J)
+  leadsPorNivel: number[]; // Array com 6 números, um para cada nível (I-VI)
 }

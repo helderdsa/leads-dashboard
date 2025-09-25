@@ -14,7 +14,9 @@ function App() {
     convertedLeads: 18,
     totalValue: 125000,
     conversionRate: 12.7,
-    leadsUltimos7Dias: [12, 18, 15, 22, 8, 25, 19] // Domingo a Sábado
+    leadsUltimos7Dias: [12, 18, 15, 22, 8, 25, 19], // Domingo a Sábado
+    leadsPorProfessor: [15, 22, 18, 28, 12, 33, 19, 25, 14, 21], // Professores A-J
+    leadsPorNivel: [28, 35, 24, 18, 22, 15] // Níveis I-VI
   };
 
   const mockLeads: Lead[] = [

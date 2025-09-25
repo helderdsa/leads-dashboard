@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { PieChart } from '@mui/x-charts/PieChart';
 import type { DashboardStats } from '../types/lead';
 
 interface StatsCardProps {
@@ -42,6 +43,12 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
   if (!stats) {
     return <div>Carregando estatísticas...</div>;
   }
+
+  // Calcular o valor máximo dos dados para ajustar o eixo Y
+  const maxLeadValue = stats.leadsUltimos7Dias && stats.leadsUltimos7Dias.length > 0 
+    ? Math.max(...stats.leadsUltimos7Dias) 
+    : 30;
+  const yAxisMax = maxLeadValue + 5;
 
   return (
     <div className="space-y-6">
@@ -113,6 +120,8 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
               ]}
               yAxis={[
                 {
+                  min: 0,
+                  max: yAxisMax,
                   tickLabelStyle: {
                     fontSize: 12,
                   },
@@ -168,6 +177,85 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
           </div>
           
 
+        </div>
+      )}
+
+      {/* Gráfico de Torta - Distribuição por Professor */}
+      {stats.leadsPorProfessor && stats.leadsPorProfessor.length > 0 && (
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">Distribuição de Leads por Professor</h3>
+          <div className="flex justify-center">
+            {/* Gráfico de Torta */}
+            <PieChart
+              series={[
+                {
+                  data: stats.leadsPorProfessor.map((value, index) => ({
+                    id: index,
+                    value: value,
+                    label: `Prof. ${String.fromCharCode(65 + index)}`, // A, B, C, etc.
+                    color: [
+                      '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE',
+                      '#1E40AF', '#1D4ED8', '#2563EB', '#3B82F6', '#6366F1'
+                    ][index]
+                  })),
+                  arcLabel: () => '', // Remove labels das fatias
+                },
+              ]}
+              width={400}
+              height={350}
+              margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
+              sx={{
+                '& .MuiPieArcLabel-root': {
+                  display: 'none', // Esconde completamente os labels das fatias
+                },
+                '& .MuiChartsLegend-root': {
+                  display: 'none !important', // Garante que a legenda não apareça
+                },
+                '& .MuiChartsLegend-series': {
+                  display: 'none !important', // Esconde qualquer série de legenda
+                },
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Gráfico de Torta - Distribuição por Nível */}
+      {stats.leadsPorNivel && stats.leadsPorNivel.length > 0 && (
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">Distribuição de Leads por Nível</h3>
+          <div className="flex justify-center">
+            {/* Gráfico de Torta */}
+            <PieChart
+              series={[
+                {
+                  data: stats.leadsPorNivel.map((value, index) => ({
+                    id: index,
+                    value: value,
+                    label: `Nível ${['I', 'II', 'III', 'IV', 'V', 'VI'][index]}`, // I, II, III, IV, V, VI
+                    color: [
+                      '#10B981', '#34D399', '#6EE7B7', '#A7F3D0', '#D1FAE5', '#ECFDF5'
+                    ][index]
+                  })),
+                  arcLabel: () => '', // Remove labels das fatias
+                },
+              ]}
+              width={400}
+              height={350}
+              margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
+              sx={{
+                '& .MuiPieArcLabel-root': {
+                  display: 'none', // Esconde completamente os labels das fatias
+                },
+                '& .MuiChartsLegend-root': {
+                  display: 'none !important', // Garante que a legenda não apareça
+                },
+                '& .MuiChartsLegend-series': {
+                  display: 'none !important', // Esconde qualquer série de legenda
+                },
+              }}
+            />
+          </div>
         </div>
       )}
     </div>
