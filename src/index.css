@@ -1,23 +1,34 @@
 @import "tailwindcss";
 
-/* Configurações globais para tema escuro */
-:root {
+/* Forçar modo escuro globalmente */
+* {
   color-scheme: dark;
 }
 
+/* Configurações globais para tema escuro */
+:root {
+  color-scheme: dark !important;
+}
+
 html {
-  background-color: #030712; /* slate-950 */
+  background-color: #030712 !important; /* slate-950 */
+  color-scheme: dark !important;
 }
 
 body {
-  background-color: #030712; /* slate-950 */
-  color: #ffffff;
+  background-color: #030712 !important; /* slate-950 */
+  color: #ffffff !important;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Garantir que todos os elementos herdem o modo escuro */
+*, *::before, *::after {
+  color-scheme: dark;
 }
 
 /* Garantir que scrollbars também sejam escuras */
@@ -27,26 +38,55 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b; /* slate-800 */
+  background: #1e293b !important; /* slate-800 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569; /* slate-600 */
+  background: #475569 !important; /* slate-600 */
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b; /* slate-500 */
+  background: #64748b !important; /* slate-500 */
 }
 
-/* Estilos para inputs e selects se necessário */
-input, select, textarea {
-  background-color: #1e293b; /* slate-800 */
-  color: #ffffff;
-  border-color: #475569; /* slate-600 */
+/* Forçar estilos escuros para inputs e selects */
+input, select, textarea, button {
+  background-color: #1e293b !important; /* slate-800 */
+  color: #ffffff !important;
+  border-color: #475569 !important; /* slate-600 */
+  color-scheme: dark !important;
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: #3b82f6; /* blue-500 */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6 !important; /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Garantir que media queries não sobreponham o modo escuro */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: dark !important;
+  }
+  
+  html, body {
+    background-color: #030712 !important;
+    color: #ffffff !important;
+  }
+}
+
+/* Estilos específicos para componentes MUI que podem tentar usar modo claro */
+.MuiSvgIcon-root {
+  color: #ffffff !important;
+}
+
+/* Garantir que tooltips e overlays também sejam escuros */
+.MuiTooltip-tooltip {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+.MuiPaper-root {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
 }

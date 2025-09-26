@@ -4,8 +4,8 @@ import { useLeads, useDashboardStats } from './hooks/useLeads';
 import type { Lead } from './types/lead';
 
 function App() {
-  const { leads, loading: leadsLoading, error: leadsError, refetch } = useLeads();
-  const { stats, error: statsError } = useDashboardStats();
+  const { leads, loading: leadsLoading, refetch } = useLeads();
+  const { stats } = useDashboardStats();
 
   // Dados mock para demonstração quando a API não estiver disponível
   const mockStats = {
@@ -21,39 +21,49 @@ function App() {
 
   const mockLeads: Lead[] = [
     {
-      id: '1',
-      name: 'João Silva',
-      email: 'joao@exemplo.com',
-      phone: '(11) 99999-9999',
-      company: 'Tech Solutions',
-      status: 'new',
-      source: 'Website',
-      value: 15000,
-      createdAt: '2024-01-15T10:30:00Z',
-      updatedAt: '2024-01-15T10:30:00Z'
+      id: 1,
+      adtsAtual: 15,
+      anoIngresso: 2017,
+      email: "joao.silva@exemplo.com",
+      letraAtual: "B",
+      nivel: "III",
+      nomeCompleto: "João Silva Santos",
+      possuiProcessos: false,
+      whatsapp: "(11) 99999-9999",
+      conditions: true,
+      newsletter: true,
+      createdAt: "2025-01-15T10:30:00Z",
+      updatedAt: "2025-01-15T10:30:00Z"
     },
     {
-      id: '2',
-      name: 'Maria Santos',
-      email: 'maria@exemplo.com',
-      company: 'Digital Corp',
-      status: 'qualified',
-      source: 'LinkedIn',
-      value: 25000,
-      createdAt: '2024-01-14T14:22:00Z',
-      updatedAt: '2024-01-16T09:15:00Z'
+      id: 2,
+      adtsAtual: 10,
+      anoIngresso: 2020,
+      email: "maria.santos@exemplo.com",
+      letraAtual: "A",
+      nivel: "II",
+      nomeCompleto: "Maria Santos Silva",
+      possuiProcessos: true,
+      whatsapp: "(21) 88888-8888",
+      conditions: true,
+      newsletter: false,
+      createdAt: "2025-01-14T14:22:00Z",
+      updatedAt: "2025-01-16T09:15:00Z"
     },
     {
-      id: '3',
-      name: 'Pedro Costa',
-      email: 'pedro@exemplo.com',
-      phone: '(21) 88888-8888',
-      company: 'StartupXYZ',
-      status: 'won',
-      source: 'Referência',
-      value: 40000,
-      createdAt: '2024-01-10T16:45:00Z',
-      updatedAt: '2024-01-18T11:30:00Z'
+      id: 3,
+      adtsAtual: 30,
+      anoIngresso: 2015,
+      email: "pedro.costa@exemplo.com",
+      letraAtual: "H",
+      nivel: "V",
+      nomeCompleto: "Pedro Costa Oliveira",
+      possuiProcessos: false,
+      whatsapp: "(85) 77777-7777",
+      conditions: true,
+      newsletter: true,
+      createdAt: "2025-01-10T16:45:00Z",
+      updatedAt: "2025-01-18T11:30:00Z"
     }
   ];
 
@@ -62,7 +72,7 @@ function App() {
     // Aqui você implementaria a lógica para abrir um modal de edição
   };
 
-  const handleDeleteLead = (leadId: string) => {
+  const handleDeleteLead = (leadId: number) => {
     console.log('Deletar lead:', leadId);
     // Aqui você implementaria a lógica para deletar o lead
     refetch(); // Atualizar a lista após deletar
@@ -85,24 +95,9 @@ function App() {
         {/* Stats Cards */}
         <DashboardStats stats={displayStats} />
 
-        {/* Error Messages */}
-        {leadsError && (
-          <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded mb-6">
-            <p><strong>Erro ao carregar leads:</strong> {leadsError}</p>
-            <p className="text-sm mt-1">Exibindo dados de exemplo. Verifique se a API está funcionando.</p>
-          </div>
-        )}
-
-        {statsError && (
-          <div className="bg-yellow-900/50 border border-yellow-700 text-yellow-300 px-4 py-3 rounded mb-6">
-            <p><strong>Erro ao carregar estatísticas:</strong> {statsError}</p>
-            <p className="text-sm mt-1">Exibindo estatísticas de exemplo.</p>
-          </div>
-        )}
-
         {/* Leads Table */}
         <div className="mb-8">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center my-8">
             <h2 className="text-xl font-semibold text-white">Lista de Leads</h2>
             <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors">
               + Novo Lead
@@ -117,39 +112,11 @@ function App() {
           />
         </div>
 
-        {/* Footer Info */}
-        <div className="bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700">
-          <h3 className="text-lg font-medium text-white mb-4">Configuração do Projeto</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div>
-              <h4 className="font-medium text-slate-200 mb-2">Tecnologias</h4>
-              <ul className="text-slate-300 space-y-1">
-                <li>✅ React 18 + TypeScript</li>
-                <li>✅ Tailwind CSS</li>
-                <li>✅ Axios</li>
-                <li>✅ Hooks customizados</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-slate-200 mb-2">Estrutura</h4>
-              <ul className="text-slate-300 space-y-1">
-                <li>📁 /src/components</li>
-                <li>📁 /src/services</li>
-                <li>📁 /src/hooks</li>
-                <li>📁 /src/types</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-slate-200 mb-2">Funcionalidades</h4>
-              <ul className="text-slate-300 space-y-1">
-                <li>📊 Dashboard com estatísticas</li>
-                <li>📋 Tabela de leads responsiva</li>
-                <li>🔄 Gerenciamento de estado</li>
-                <li>⚡ Configuração com Vite</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <footer className="bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700">
+          <p className="text-slate-300">
+            Escritório de Advocacia Clodonil Monteiro - 2025
+          </p>
+        </footer>
       </div>
     </div>
   );

@@ -1,12 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR" class="dark" style="color-scheme: dark; background-color: #030712;">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>leads-dashboard</title>
+    <meta name="color-scheme" content="dark" />
+    <title>Dashboard de Professores</title>
+    <style>
+      /* Garantir modo escuro antes mesmo do CSS carregar */
+      html, body {
+        background-color: #030712 !important;
+        color: #ffffff !important;
+        color-scheme: dark !important;
+      }
+      
+      /* Evitar flash de conteúdo claro */
+      * {
+        color-scheme: dark;
+      }
+    </style>
   </head>
-  <body>
+  <body style="background-color: #030712; color: #ffffff;">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

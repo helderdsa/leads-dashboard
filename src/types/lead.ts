@@ -1,46 +1,43 @@
 // Tipos para o sistema de leads
 export interface Lead {
-  id: string;
-  name: string;
+  id: number;
+  adtsAtual: number;
+  anoIngresso: number;
   email: string;
-  phone?: string;
-  company?: string;
-  status: LeadStatus;
-  source: string;
-  value?: number;
+  letraAtual: string;
+  nivel: string;
+  nomeCompleto: string;
+  possuiProcessos: boolean;
+  whatsapp: string;
+  conditions: boolean;
+  newsletter: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
-export const LeadStatus = {
-  NEW: 'new',
-  CONTACTED: 'contacted',
-  QUALIFIED: 'qualified',
-  PROPOSAL: 'proposal',
-  WON: 'won',
-  LOST: 'lost'
-} as const;
-
-export type LeadStatus = typeof LeadStatus[keyof typeof LeadStatus];
-
-export interface LeadCreateRequest {
-  name: string;
+export interface ProfessorCreateRequest {
+  nomeCompleto: string;
   email: string;
-  phone?: string;
-  company?: string;
-  source: string;
-  value?: number;
+  whatsapp: string;
+  letraAtual: string;
+  nivel: string;
+  anoIngresso: number;
+  adtsAtual: number;
+  possuiProcessos: boolean;
+  conditions: boolean;
+  newsletter: boolean;
 }
 
-export interface LeadUpdateRequest extends Partial<LeadCreateRequest> {
-  status?: LeadStatus;
+export interface ProfessorUpdateRequest extends Partial<ProfessorCreateRequest> {
+  id: number;
 }
 
-export interface LeadFilters {
-  status?: LeadStatus;
-  source?: string;
-  dateFrom?: string;
-  dateTo?: string;
+export interface ProfessorFilters {
+  letraAtual?: string;
+  nivel?: string;
+  possuiProcessos?: boolean;
+  anoIngressoMin?: number;
+  anoIngressoMax?: number;
   search?: string;
 }
 
