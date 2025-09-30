@@ -1,11 +1,15 @@
 import DashboardStats from './components/DashboardStats';
 import LeadsTable from './components/LeadsTable';
 import { useLeads, useDashboardStats } from './hooks/useLeads';
+import { useTotalLeads } from './hooks/useTotalLeads';
+import { useNewLeadsToday } from './hooks/useNewLeadsToday';
 import type { Lead } from './types/lead';
 
 function App() {
   const { leads, loading: leadsLoading, refetch } = useLeads();
   const { stats } = useDashboardStats();
+  const { totalLeads } = useTotalLeads();
+  const { newLeads } = useNewLeadsToday();
 
   // Dados mock para demonstração quando a API não estiver disponível
   const mockStats = {
@@ -79,7 +83,11 @@ function App() {
   };
 
   // Usar dados reais se disponíveis, senão usar mock
-  const displayStats = stats || mockStats;
+  const displayStats = stats || {
+    ...mockStats,
+    totalLeads: totalLeads !== null ? totalLeads : "Loading...",
+    newLeads: newLeads !== null ? newLeads : "Loading..."
+  };
   const displayLeads = leads.length > 0 ? leads : mockLeads;
   const displayLoading = leadsLoading && leads.length === 0;
 

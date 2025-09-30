@@ -1,8 +1,8 @@
 import React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { HiOutlineUsers, HiOutlinePlus, HiOutlineCheckCircle, HiOutlineCurrencyDollar, HiOutlineTrendingUp } from 'react-icons/hi';
-import type { DashboardStats } from '../types/lead';
+import { HiOutlineUsers, HiOutlinePlus} from 'react-icons/hi';
+import type { DashboardStats, DiaSemana, LeadsPorLetra, LeadsPorNivel } from '../types/lead';
 
 interface StatsCardProps {
   title: string;
@@ -47,38 +47,23 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
 
   // Calcular o valor máximo dos dados para ajustar o eixo Y
   const maxLeadValue = stats.leadsUltimos7Dias && stats.leadsUltimos7Dias.length > 0 
-    ? Math.max(...stats.leadsUltimos7Dias) 
-    : 30;
+    ? Math.max(...(stats.leadsUltimos7Dias as DiaSemana[]).map((item) => item.qtd))
+    : 0;
   const yAxisMax = maxLeadValue + 5;
 
   return (
     <div className="space-y-6">
       {/* Cards principais */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
         <StatsCard
           title="Total de Leads"
           value={stats.totalLeads || 0}
           icon={<HiOutlineUsers className="w-8 h-8" />}
         />
         <StatsCard
-          title="Novos Leads"
+          title="Novos Leads Hoje"
           value={stats.newLeads || 0}
           icon={<HiOutlinePlus className="w-8 h-8" />}
-        />
-        <StatsCard
-          title="Convertidos"
-          value={stats.convertedLeads || 0}
-          icon={<HiOutlineCheckCircle className="w-8 h-8" />}
-        />
-        <StatsCard
-          title="Valor Total"
-          value={`R$ ${(stats.totalValue || 0).toLocaleString('pt-BR')}`}
-          icon={<HiOutlineCurrencyDollar className="w-8 h-8" />}
-        />
-        <StatsCard
-          title="Taxa de Conversão"
-          value={`${(stats.conversionRate || 0).toFixed(1)}%`}
-          icon={<HiOutlineTrendingUp className="w-8 h-8" />}
         />
       </div>
 
@@ -105,7 +90,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                 mode="black"
                 series={[
                   {
-                    data: stats.leadsUltimos7Dias,
+                    data: (stats.leadsUltimos7Dias as DiaSemana[]).map((item) => item.qtd),
                     area: true,
                     color: '#3B82F6',
                     curve: 'catmullRom'
@@ -114,7 +99,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                 xAxis={[
                   {
                     scaleType: 'point',
-                    data: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                    data: (stats.leadsUltimos7Dias as DiaSemana[]).map((item) => item.dia),
                     tickLabelStyle: {
                       fontSize: 12,
                       fontWeight: 500,
@@ -197,17 +182,17 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
         )}
 
         {/* Gráfico de Torta - Distribuição por Professor - 1/6 da largura */}
-        {stats.leadsPorProfessor && stats.leadsPorProfessor.length > 0 && (
+        {stats.leadsPorLetra && stats.leadsPorLetra.length > 0 && (
           <div className="bg-slate-800 rounded-lg shadow-lg p-4 border border-slate-700">
             <h3 className="text-sm font-semibold text-white mb-3">Professores</h3>
             <div className="flex justify-center">
               <PieChart
                 series={[
                   {
-                    data: stats.leadsPorProfessor.map((value, index) => ({
+                    data: (stats.leadsPorLetra as LeadsPorLetra[]).map((value, index) => ({
                       id: index,
-                      value: value,
-                      label: `Prof. ${String.fromCharCode(65 + index)}`, // A, B, C, etc.
+                      value: value.qtd,
+                      label: `Prof. ${value.letra}`, // A, B, C, etc.
                       color: [
                         '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE',
                         '#1E40AF', '#1D4ED8', '#2563EB', '#3B82F6', '#6366F1'
@@ -243,10 +228,10 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
               <PieChart
                 series={[
                   {
-                    data: stats.leadsPorNivel.map((value, index) => ({
+                    data: (stats.leadsPorNivel as LeadsPorNivel[]).map((value, index) => ({
                       id: index,
-                      value: value,
-                      label: `Nível ${['I', 'II', 'III', 'IV', 'V', 'VI'][index]}`, // I, II, III, IV, V, VI
+                      value: value.qtd,
+                      label: `Nível ${value.nivel}`, // I, II, III, IV, V, VI
                       color: [
                         '#1E40AF', '#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'
                       ][index]

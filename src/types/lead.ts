@@ -44,10 +44,45 @@ export interface ProfessorFilters {
 export interface DashboardStats {
   totalLeads: number;
   newLeads: number;
-  convertedLeads: number;
-  totalValue: number;
-  conversionRate: number;
-  leadsUltimos7Dias: number[]; // Array com 7 números, um para cada dia da semana
-  leadsPorProfessor: number[]; // Array com 10 números, um para cada professor (A-J)
-  leadsPorNivel: number[]; // Array com 6 números, um para cada nível (I-VI)
+  leadsUltimos7Dias: object[]; // Array com 7 números, um para cada dia da semana
+  leadsPorLetra: object[]; // Array com 10 números, um para cada letra (A-J)
+  leadsPorNivel: object[]; // Array com 6 números, um para cada nível (I-VI)
+}
+
+export interface DiaSemana {
+  dia: string; // Nome do dia da semana (ex: "Segunda-feira")
+  qtd: number; // Quantidade de leads nesse dia
+}
+
+export interface LeadsPorLetra {
+  letra: string; // Letra (A-J)
+  qtd: number; // Quantidade de leads com essa letra
+}
+
+export interface LeadsPorNivel {
+  nivel: string; // Nível (I-VI)
+  qtd: number; // Quantidade de leads com esse nível
+}
+
+export interface LeadFilters {
+  status?: string;
+  source?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  search?: string;
+}
+
+// Tipos para a API
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  message: string;
+}
+
+export interface TotalLeadsStats {
+  total: number;
+}
+
+export interface NewLeadsStats {
+  newLeads: number;
 }
