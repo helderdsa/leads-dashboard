@@ -184,7 +184,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
         {/* Gráfico de Torta - Distribuição por Professor - 1/6 da largura */}
         {stats.leadsPorLetra && stats.leadsPorLetra.length > 0 && (
           <div className="bg-slate-800 rounded-lg shadow-lg p-4 border border-slate-700">
-            <h3 className="text-sm font-semibold text-white mb-3">Professores</h3>
+            <h3 className="text-sm font-semibold text-white mb-3">Professores por Letra</h3>
             <div className="flex justify-center">
               <PieChart
                 series={[
@@ -192,13 +192,14 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                     data: (stats.leadsPorLetra as LeadsPorLetra[]).map((value, index) => ({
                       id: index,
                       value: value.qtd,
-                      label: `Prof. ${value.letra}`, // A, B, C, etc.
-                      color: [
-                        '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE',
-                        '#1E40AF', '#1D4ED8', '#2563EB', '#3B82F6', '#6366F1'
-                      ][index]
-                    })),
-                    arcLabel: () => '', // Remove labels das fatias
+                      label: `Letra ${value.letra}`,
+                       // A, B, C, etc.
+                                  color: [
+                                  '#96ABED', '#859DEA', '#738FE7', '#6280E4', '#5172E1',
+                                  '#3F64DE', '#2E56DC', '#234CD1', '#2146C0', '#1E40AF'
+                                  ][index]
+                                })),
+                                arcLabel: () => '', // Remove labels das fatias
                   },
                 ]}
                 width={220}
@@ -223,7 +224,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
         {/* Gráfico de Torta - Distribuição por Nível - 1/6 da largura */}
         {stats.leadsPorNivel && stats.leadsPorNivel.length > 0 && (
           <div className="bg-slate-800 rounded-lg shadow-lg p-4 border border-slate-700">
-            <h3 className="text-sm font-semibold text-white mb-3">Níveis</h3>
+            <h3 className="text-sm font-semibold text-white mb-3">Professores por Nível</h3>
             <div className="flex justify-center">
               <PieChart
                 series={[
@@ -233,7 +234,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                       value: value.qtd,
                       label: `Nível ${value.nivel}`, // I, II, III, IV, V, VI
                       color: [
-                        '#1E40AF', '#2563EB', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'
+                        '#B9C7F3', '#859DEA', '#6280E4', '#3F64DE', '#234CD1', '#1E40AF'
                       ][index]
                     })),
                     arcLabel: () => '', // Remove labels das fatias

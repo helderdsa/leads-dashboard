@@ -3,17 +3,34 @@ import { HiOutlineXCircle, HiOutlinePencil, HiOutlineTrash } from 'react-icons/h
 import type { Lead } from '../types/lead';
 
 const getAdtsColor = (adtsAtual: number): string => {
-  if (adtsAtual >= 30) return 'bg-green-900/50 text-green-300 border border-green-700';
-  if (adtsAtual >= 20) return 'bg-blue-900/50 text-blue-300 border border-blue-700';
-  if (adtsAtual >= 15) return 'bg-yellow-900/50 text-yellow-300 border border-yellow-700';
-  if (adtsAtual >= 10) return 'bg-orange-900/50 text-orange-300 border border-orange-700';
+  if (adtsAtual >= 30) return 'bg-green-900/50 shadow-lg hover:shadow-green-900 transition duration-500 text-green-300 border border-green-700';
+  if (adtsAtual >= 20) return 'bg-blue-900/50 shadow-lg hover:shadow-blue-700 transition duration-500 text-blue-300 border border-blue-700';
+  if (adtsAtual >= 15) return 'bg-yellow-900/50 shadow-lg hover:shadow-yellow-700 transition duration-500 text-yellow-300 border border-yellow-700';
+  if (adtsAtual >= 10) return 'bg-orange-900/50 shadow-lg hover:shadow-orange-700 transition duration-500 text-orange-300 border border-orange-700';
+  return 'bg-red-900/50 shadow-lg hover:shadow-red-700 transition duration-500 text-red-300 border border-red-700';
+};
+
+const getLettersColor = (letraAtual: string): string => {
+  const letter = letraAtual.toUpperCase();
+  if (letter === "A" || letter === "B" || letter === "C") {
+    return 'bg-green-900/50 shadow-lg hover:shadow-green-900 transition duration-500 text-green-500 border border-green-900';
+  } 
+  if (letter === "D" || letter === "E" || letter === "F") {
+    return 'bg-green-900/50 shadow-lg hover:shadow-green-800 transition duration-500 text-green-300 border border-green-700';
+  }
+  if (letter === "G" || letter === "H" || letter === "I") {
+    return 'bg-blue-900/50 shadow-lg hover:shadow-blue-700 transition duration-500 text-blue-300 border border-blue-700';
+  }
+  if (letter === "J") {
+    return 'bg-blue-900/50 shadow-lg hover:shadow-blue-600 transition duration-500 text-blue-200 border border-blue-600';
+  }
   return 'bg-red-900/50 text-red-300 border border-red-700';
 };
 
 const getProcessosStatus = (possuiProcessos: boolean): string => {
   return possuiProcessos 
-    ? 'bg-red-900/50 text-red-300 border border-red-700' 
-    : 'bg-green-900/50 text-green-300 border border-green-700';
+    ? 'bg-red-900/50 shadow-lg hover:shadow-red-700 transition duration-500 text-red-300 border border-red-700' 
+    : 'bg-green-900/50 shadow-lg hover:shadow-green-700 transition duration-500 text-green-300 border border-green-700';
 };
 
 const getProcessosText = (possuiProcessos: boolean): string => {
@@ -22,8 +39,8 @@ const getProcessosText = (possuiProcessos: boolean): string => {
 
 const getNewsletterStatus = (newsletter: boolean): string => {
   return newsletter 
-    ? 'bg-green-900/50 text-green-300 border border-green-700' 
-    : 'bg-red-900/50 text-red-300 border border-red-700';
+    ? 'bg-green-900/50 shadow-lg hover:shadow-green-700 transition duration-500 text-green-300 border border-green-700' 
+    : 'bg-red-900/50 shadow-lg hover:shadow-red-700 transition duration-500 text-red-300 border border-red-700';
 };
 
 const getNewsletterText = (newsletter: boolean): string => {
@@ -82,19 +99,19 @@ const LeadsTable: React.FC<LeadsTableProps> = ({
               <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
                 Email
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-center text-xs font-medium text-slate-300 uppercase tracking-wider">
                 Letra/Nível
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-center text-xs font-medium text-slate-300 uppercase tracking-wider">
                 ADTs
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-center text-xs font-medium text-slate-300 uppercase tracking-wider">
                 Ano Ingresso
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-center text-xs font-medium text-slate-300 uppercase tracking-wider">
                 Processos
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-center text-xs font-medium text-slate-300 uppercase tracking-wider">
                 Newsletter
               </th>
               <th className="px-6 py-3 text-right text-xs font-medium text-slate-300 uppercase tracking-wider">
@@ -114,23 +131,25 @@ const LeadsTable: React.FC<LeadsTableProps> = ({
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-white">{lead.email}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-white">{lead.letraAtual} / {lead.nivel}</div>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  <div className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getLettersColor(lead.letraAtual)}`}>
+                    {lead.letraAtual.toUpperCase()} / {lead.nivel.toUpperCase()}
+                  </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap text-center">
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getAdtsColor(lead.adtsAtual)}`}>
                     {lead.adtsAtual}%
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-white text-center">
                   {lead.anoIngresso}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap text-center">
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getProcessosStatus(lead.possuiProcessos)}`}>
                     {getProcessosText(lead.possuiProcessos)}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap text-center">
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getNewsletterStatus(lead.newsletter)}`}>
                     {getNewsletterText(lead.newsletter)}
                   </span>
