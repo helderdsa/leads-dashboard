@@ -86,3 +86,17 @@ export interface TotalLeadsStats {
 export interface NewLeadsStats {
   newLeads: number;
 }
+
+export interface PaginationInfo {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface LeadsResponse {
+  success: boolean;
+  data: Lead[];
+  pagination: PaginationInfo;
+  message?: string;
+}

@@ -1,18 +1,18 @@
 import api from './api';
-import type { Lead, ProfessorCreateRequest as LeadCreateRequest, ProfessorUpdateRequest as LeadUpdateRequest, LeadFilters, DashboardStats } from '../types/lead';
+import type { Lead, ProfessorCreateRequest as LeadCreateRequest, ProfessorUpdateRequest as LeadUpdateRequest, DashboardStats } from '../types/lead';
 
 export class LeadService {
   // Buscar todos os leads com filtros opcionais
-  static async getLeads(filters?: LeadFilters): Promise<Lead[]> {
-    const params = new URLSearchParams();
+  static async getLeads(): Promise<Lead[]> {
+    // const params = new URLSearchParams();
     
-    if (filters?.status) params.append('status', filters.status);
-    if (filters?.source) params.append('source', filters.source);
-    if (filters?.dateFrom) params.append('dateFrom', filters.dateFrom);
-    if (filters?.dateTo) params.append('dateTo', filters.dateTo);
-    if (filters?.search) params.append('search', filters.search);
+    // if (filters?.status) params.append('status', filters.status);
+    // if (filters?.source) params.append('source', filters.source);
+    // if (filters?.dateFrom) params.append('dateFrom', filters.dateFrom);
+    // if (filters?.dateTo) params.append('dateTo', filters.dateTo);
+    // if (filters?.search) params.append('search', filters.search);
 
-    const response = await api.get(`/customers?${params.toString()}`);
+    const response = await api.get(`/customers?limit=1000`);
     return response.data.data || response.data;
   }
 

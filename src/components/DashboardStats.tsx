@@ -87,13 +87,13 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
               <LineChart
                 width={undefined}
                 height={250}
-                mode="black"
                 series={[
                   {
                     data: (stats.leadsUltimos7Dias as DiaSemana[]).map((item) => item.qtd),
                     area: true,
                     color: '#3B82F6',
-                    curve: 'catmullRom'
+                    curve: 'catmullRom',
+                    showMark: false
                   },
                 ]}
                 xAxis={[
@@ -104,6 +104,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                       fontSize: 12,
                       fontWeight: 500,
                     },
+                    disableTicks: true,
                   },
                 ]}
                 yAxis={[
@@ -113,67 +114,13 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                     tickLabelStyle: {
                       fontSize: 12,
                     },
+                    disableTicks: true,
                   },
                 ]}
-                margin={{ left: 50, right: 20, top: 20, bottom: 50 }}
-                grid={{ vertical: false, horizontal: false }}
-                slots={{
-                  legend: () => null
-                }}
                 sx={{
-                  // Ocultar legenda com múltiplos seletores
-                  '& .MuiChartsLegend-root': {
-                    display: 'none !important',
-                  },
-                  '& .MuiChartsLegend-series': {
-                    display: 'none !important',
-                  },
-                  '& .MuiChartsLegend-mark': {
-                    display: 'none !important',
-                  },
-                  '& .MuiChartsLegend-label': {
-                    display: 'none !important',
-                  },
-                  '& [role="legend"]': {
-                    display: 'none !important',
-                  },
                   // Área sob a linha com gradiente personalizado
                   '.MuiAreaElement-root': {
                     fill: 'url(#areaGradient)',
-                  },
-                  // Linha principal mais elegante
-                  '.MuiLineElement-root': {
-                    strokeWidth: 3,
-                    stroke: '#3B82F6',
-                    filter: 'drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3))',
-                  },
-                  // Pontos de dados removidos (ocultos)
-                  '.MuiMarkElement-root': {
-                    display: 'none',
-                  },
-                  // Remover bordas dos eixos
-                  '& .MuiChartsAxis-line': {
-                    stroke: '#475569',
-                    strokeWidth: 1,
-                  },
-                  // Estilizar labels dos eixos
-                  '& .MuiChartsAxis-tickLabel': {
-                    fontSize: '12px',
-                    fontWeight: 500,
-                    fill: '#ffffff',
-                  },
-                  // Remover ticks dos eixos
-                  '& .MuiChartsAxis-tick': {
-                    stroke: 'transparent',
-                  },
-                  // Container do gráfico
-                  '& .MuiChartsAxis-root': {
-                    '& .MuiChartsAxis-bottom .MuiChartsAxis-line': {
-                      stroke: '#64748B',
-                    },
-                    '& .MuiChartsAxis-left .MuiChartsAxis-line': {
-                      stroke: 'transparent',
-                    },
                   },
                 }}
               />
