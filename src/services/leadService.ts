@@ -13,7 +13,10 @@ export class LeadService {
     if (filters?.search) params.append('search', filters.search);
 
     const response = await api.get(`/customers?${params.toString()}`);
-    return response.data;
+    console.log('API Response:', response.data);
+    
+    // Retornar os dados corretos baseado na estrutura da API
+    return response.data.data || response.data;
   }
 
   // Buscar lead por ID
@@ -101,8 +104,7 @@ export class LeadService {
         leadsPorLetra: await this.getCustomerByLetter(),
         leadsPorNivel: await this.getCustomerByLevel()
       };
-      console.log(response);
-      
+
       return response;
     } catch (error) {
       console.error('Erro ao buscar estatísticas do dashboard:', error);
