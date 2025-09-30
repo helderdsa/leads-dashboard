@@ -1,10 +1,9 @@
 import DashboardStats from './components/DashboardStats';
 import LeadsTable from './components/LeadsTable';
-import { useLeads, useDashboardStats } from './hooks/useLeads';
+import { useDashboardStats } from './hooks/useLeads';
 import type { DashboardStats as DashboardStatsData, Lead } from './types/lead';
 
 function App() {
-  const { leads, loading: leadsLoading, refetch } = useLeads();
   const { stats } = useDashboardStats();
 
   const handleEditLead = (lead: Lead) => {
@@ -15,7 +14,6 @@ function App() {
   const handleDeleteLead = (leadId: number) => {
     console.log('Deletar lead:', leadId);
     // Aqui você implementaria a lógica para deletar o lead
-    refetch(); // Atualizar a lista após deletar
   };
 
   // Usar dados reais se disponíveis, senão usar mock
@@ -28,7 +26,6 @@ function App() {
 };
 
   // const displayLeads = leads.length > 0 ? leads : mockLeads;
-  const displayLoading = leadsLoading && leads.length === 0;
 
   return (
     <div className="min-h-screen bg-slate-950">
@@ -52,10 +49,9 @@ function App() {
           </div>
           
           <LeadsTable
-            leads={leads}
-            loading={displayLoading}
             onEditLead={handleEditLead}
             onDeleteLead={handleDeleteLead}
+            itemsPerPage={10}
           />
         </div>
 

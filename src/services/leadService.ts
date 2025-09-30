@@ -1,19 +1,58 @@
 import api from './api';
-import type { Lead, ProfessorCreateRequest as LeadCreateRequest, ProfessorUpdateRequest as LeadUpdateRequest, DashboardStats } from '../types/lead';
+import type { Lead, ProfessorCreateRequest as LeadCreateRequest, ProfessorUpdateRequest as LeadUpdateRequest, DashboardStats, LeadsResponse } from '../types/lead';
 
 export class LeadService {
   // Buscar todos os leads com filtros opcionais
   static async getLeads(): Promise<Lead[]> {
-    // const params = new URLSearchParams();
-    
-    // if (filters?.status) params.append('status', filters.status);
-    // if (filters?.source) params.append('source', filters.source);
-    // if (filters?.dateFrom) params.append('dateFrom', filters.dateFrom);
-    // if (filters?.dateTo) params.append('dateTo', filters.dateTo);
-    // if (filters?.search) params.append('search', filters.search);
 
     const response = await api.get(`/customers?limit=1000`);
     return response.data.data || response.data;
+  }
+
+  // Buscar leads com paginação
+  static async getLeadsPaginated(page: number = 1, limit: number = 10): Promise<LeadsResponse> {
+    try {
+      const response = await api.get('/customers', {
+        params: { page, limit }
+      });
+      
+      // Se a API retornar dados paginados
+      if (response.data.pagination) {
+        return response.data;
+      }
+      
+      // Se a API não retornar paginação, simular localmente
+      const allLeads = response.data.data || response.data;
+      const leads = Array.isArray(allLeads) ? allLeads : [];
+      const total = leads.length;
+      const totalPages = Math.ceil(total / limit);
+      const startIndex = (page - 1) * limit;
+      const endIndex = startIndex + limit;
+      const paginatedLeads = leads.slice(startIndex, endIndex);
+      
+      return {
+        success: true,
+        data: paginatedLeads,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages
+        }
+      };
+    } catch (error) {
+      console.error('Erro ao buscar leads paginados:', error);
+      return {
+        success: false,
+        data: [],
+        pagination: {
+          page: 1,
+          limit,
+          total: 0,
+          totalPages: 0
+        }
+      };
+    }
   }
 
   // Buscar lead por ID

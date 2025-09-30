@@ -93,7 +93,7 @@ const DashboardStatsComponent: React.FC<DashboardStatsProps> = ({ stats }) => {
                     area: true,
                     color: '#3B82F6',
                     curve: 'catmullRom',
-                    showMark: false
+                    showMark: false,
                   },
                 ]}
                 xAxis={[

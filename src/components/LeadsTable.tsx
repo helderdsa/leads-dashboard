@@ -1,5 +1,7 @@
 import React from 'react';
 import { HiOutlineXCircle, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi';
+import { useLeadsPaginated } from '../hooks/usePagination';
+import { Pagination } from './Pagination';
 import type { Lead } from '../types/lead';
 
 const getAdtsColor = (adtsAtual: number): string => {
@@ -48,18 +50,27 @@ const getNewsletterText = (newsletter: boolean): string => {
 };
 
 interface LeadsTableProps {
-  leads: Lead[];
   onEditLead?: (lead: Lead) => void;
   onDeleteLead?: (leadId: number) => void;
-  loading?: boolean;
+  itemsPerPage?: number;
 }
 
 const LeadsTable: React.FC<LeadsTableProps> = ({ 
-  leads, 
   onEditLead, 
-  onDeleteLead, 
-  loading = false 
+  onDeleteLead,
+  itemsPerPage = 10
 }) => {
+  const {
+    leads,
+    pagination,
+    loading,
+    error,
+    goToPage,
+    goToNextPage,
+    goToPreviousPage,
+    refetch
+  } = useLeadsPaginated(1, itemsPerPage);
+
   if (loading) {
     return (
       <div className="bg-slate-800 rounded-lg shadow-lg p-8 border border-slate-700">
@@ -75,20 +86,46 @@ const LeadsTable: React.FC<LeadsTableProps> = ({
     );
   }
 
-  if (leads.length === 0) {
+  if (error) {
+    return (
+      <div className="bg-slate-800 rounded-lg shadow-lg p-8 text-center border border-slate-700">
+        <div className="text-red-400 mb-4">
+          <HiOutlineXCircle className="w-16 h-16 mx-auto" />
+        </div>
+        <h3 className="text-lg font-medium text-white mb-2">Erro ao carregar leads</h3>
+        <p className="text-slate-400 mb-4">{error}</p>
+        <button
+          onClick={refetch}
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    );
+  }
+
+  if (leads.length === 0 && pagination.total === 0) {
     return (
       <div className="bg-slate-800 rounded-lg shadow-lg p-8 text-center border border-slate-700">
         <div className="text-slate-400 mb-4">
           <HiOutlineXCircle className="w-16 h-16 mx-auto" />
         </div>
         <h3 className="text-lg font-medium text-white mb-2">Nenhum lead encontrado</h3>
-        <p className="text-slate-400">Não há leads que correspondam aos filtros selecionados.</p>
+        <p className="text-slate-400">Não há leads cadastrados no sistema.</p>
       </div>
     );
   }
 
   return (
     <div className="bg-slate-800 rounded-lg shadow-lg overflow-hidden border border-slate-700">
+      {/* Header com total de registros */}
+      <div className="px-6 py-4 bg-slate-900 border-b border-slate-700">
+        <h3 className="text-lg font-medium text-white">
+          Leads ({pagination.total} {pagination.total === 1 ? 'registro' : 'registros'})
+        </h3>
+      </div>
+
+      {/* Tabela */}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-slate-700">
           <thead className="bg-slate-900">
@@ -181,6 +218,14 @@ const LeadsTable: React.FC<LeadsTableProps> = ({
           </tbody>
         </table>
       </div>
+
+      {/* Componente de Paginação */}
+      <Pagination
+        pagination={pagination}
+        onPageChange={goToPage}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+      />
     </div>
   );
 };
