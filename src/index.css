@@ -51,7 +51,7 @@ body {
 }
 
 /* Forçar estilos escuros para inputs e selects */
-input, select, textarea, button {
+input, select, textarea, {
   background-color: #1e293b !important; /* slate-800 */
   color: #ffffff !important;
   border-color: #475569 !important; /* slate-600 */

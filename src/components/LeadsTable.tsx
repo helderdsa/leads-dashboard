@@ -196,7 +196,7 @@ const LeadsTable: React.FC<LeadsTableProps> = ({
                     {onEditLead && (
                       <button
                         onClick={() => onEditLead(lead)}
-                        className="text-blue-400 hover:text-blue-300 p-1 rounded hover:bg-blue-900/50"
+                        className="text-blue-400 hover:text-blue-300 p-1 rounded hover:bg-blue-900/50 hover:shadow-lg shadow-blue-600 transition-all duration-300"
                         title="Editar lead"
                       >
                         <HiOutlinePencil className="w-4 h-4" />
@@ -205,7 +205,7 @@ const LeadsTable: React.FC<LeadsTableProps> = ({
                     {onDeleteLead && (
                       <button
                         onClick={() => onDeleteLead(lead.id)}
-                        className="text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-900/50"
+                        className="text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-900/50 hover:shadow-lg shadow-red-600 transition-all duration-300"
                         title="Deletar lead"
                       >
                         <HiOutlineTrash className="w-4 h-4" />

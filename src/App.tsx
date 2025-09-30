@@ -43,7 +43,7 @@ function App() {
         <div className="mb-8">
           <div className="flex justify-between items-center my-8">
             <h2 className="text-xl font-semibold text-white">Lista de Leads</h2>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors">
+            <button className="bg-blue-600 hover:bg-blue-500 hover:shadow-lg shadow-blue-500 text-white px-4 py-2 rounded-md font-medium transition-all duration-300">
               + Novo Lead
             </button>
           </div>

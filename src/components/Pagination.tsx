@@ -83,7 +83,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             flex items-center px-3 py-2 text-sm font-medium rounded-md
             ${page === 1
               ? 'text-gray-500 cursor-not-allowed bg-gray-800'
-              : 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:text-white'
+              : 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:shadow-lg shadow-gray-600 hover:text-white transition-all duration-300'
             }
             transition-colors duration-200
           `}
@@ -115,7 +115,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                   px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200
                   ${pageNum === page
                     ? 'bg-blue-600 text-white'
-                    : 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:text-white'
+                    : 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:text-white hover:shadow-lg shadow-gray-600 transition-all duration-300'
                   }
                 `}
               >
@@ -133,7 +133,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             flex items-center px-3 py-2 text-sm font-medium rounded-md
             ${page === totalPages
               ? 'text-gray-500 cursor-not-allowed bg-gray-800'
-              : 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:text-white'
+              : 'text-gray-300 bg-gray-700 hover:bg-gray-600 hover:text-white hover:shadow-lg shadow-gray-600 transition-all duration-300'
             }
             transition-colors duration-200
           `}
